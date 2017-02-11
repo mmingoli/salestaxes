@@ -10,3 +10,28 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Maven
+target
+*dependency-reduced-pom.xml
+
+# IDEA
+.idea
+.idea_modules
+*.iml
+
+# Eclipse
+.settings
+.project
+.classpath
+.checkstyle
+test-output
+
+# Mac
+.DS_Store
+
+# Linux
+*~
+
+#backup pom
+release/pom.xml.versionsBackup
