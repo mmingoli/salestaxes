@@ -8,6 +8,12 @@ import java.math.RoundingMode;
  */
 public class SalesTaxesUtil {
 
+    /**
+     * This method round to the second decimal digit a double in input
+     * through RoundingMode.HALF_UP
+     * @param toRound
+     * @return rounded double
+     */
     public static double roundDouble (double toRound) {
         return new BigDecimal(toRound).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }

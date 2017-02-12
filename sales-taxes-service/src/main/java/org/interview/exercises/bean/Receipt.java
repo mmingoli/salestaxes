@@ -11,6 +11,11 @@ public class Receipt {
 
     private List<PurchasingItem> items = new LinkedList<PurchasingItem>();
 
+    /**
+     * to add a purchasing item to the receipt that will be
+     * returned by {@link org.interview.exercises.service.SalesTaxesService}
+     * @param item
+     */
     public void addItem(PurchasingItem item) {
         items.add(item);
     }
@@ -19,6 +24,10 @@ public class Receipt {
         return items;
     }
 
+    /**
+     *
+     * @return total sales taxes for the list of {@link PurchasingItem}
+     */
     public double getTotalSalesTaxes() {
         double totalSalesTaxes = 0;
         for (PurchasingItem item :
@@ -28,6 +37,10 @@ public class Receipt {
         return totalSalesTaxes;
     }
 
+    /**
+     *
+     * @return total price (comprehensive of sales taxes) for the list of {@link PurchasingItem}
+     */
     public double getTotalPrice() {
         double totalPrice = 0;
         for (PurchasingItem item :
