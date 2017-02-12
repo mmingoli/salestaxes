@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sales-taxes-job</artifactId>
-    <name>Sales Taxes Job</name>
+    <artifactId>sales-taxes-service</artifactId>
+    <name>Sales Taxes Service</name>
 
 </project>
