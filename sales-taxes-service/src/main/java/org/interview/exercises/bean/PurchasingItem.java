@@ -1,6 +1,6 @@
 package org.interview.exercises.bean;
 
-import java.math.BigDecimal;
+import org.interview.exercises.util.SalesTaxesUtil;
 
 /**
  * Created by mmingoli on 2/11/2017.
@@ -36,19 +36,23 @@ public class PurchasingItem {
     }
 
     public double getUnitPrice() {
-        return unitPrice;
+        return SalesTaxesUtil.roundDouble(unitPrice);
     }
 
     public double getSalesTax() {
-        return salesTax;
+        return SalesTaxesUtil.roundDouble(salesTax);
     }
 
     public boolean isImported() {
         return imported;
     }
 
+    public double getTotalSalesTax() {
+        return SalesTaxesUtil.roundDouble(salesTax * quantity);
+    }
+
     public double getTotalPrice() {
-        return unitPrice + salesTax;
+        return SalesTaxesUtil.roundDouble((unitPrice + salesTax) * quantity);
     }
 
     public static class Builder {

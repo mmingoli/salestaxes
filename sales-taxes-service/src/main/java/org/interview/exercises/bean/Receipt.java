@@ -1,6 +1,7 @@
 package org.interview.exercises.bean;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class Receipt {
 
-    private List<PurchasingItem> items = new ArrayList<PurchasingItem>();
+    private List<PurchasingItem> items = new LinkedList<PurchasingItem>();
 
     public void addItem(PurchasingItem item) {
         items.add(item);
@@ -22,7 +23,7 @@ public class Receipt {
         double totalSalesTaxes = 0;
         for (PurchasingItem item :
                 items) {
-            totalSalesTaxes += (item != null)?item.getSalesTax():0;
+            totalSalesTaxes += (item != null)?item.getTotalSalesTax():0;
         }
         return totalSalesTaxes;
     }

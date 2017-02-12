@@ -16,7 +16,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class SalesTaxApplierChainTest {
 
     private SalesTaxApplierChain salesTaxApplierChain = new SalesTaxApplierChain();
-    private PurchasingItem item = new PurchasingItem.Builder("fight club", PurchasingItemType.BOOKS, 10.15).build();
+    private PurchasingItem item = new PurchasingItem.Builder("test name", PurchasingItemType.BOOKS, 10.15).build();
 
     @Mock
     private SalesTaxApplier applier1;
