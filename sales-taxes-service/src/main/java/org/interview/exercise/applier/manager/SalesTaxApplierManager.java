@@ -15,7 +15,7 @@ public class SalesTaxApplierManager {
     }
 
     /**
-     * Context to call the chain of {@link SalesTaxApplier} which will apply
+     * context to call the chain of {@link SalesTaxApplier} which will apply
      * sales taxes to {@link PurchasingItem}
      * @param item
      * @return item with all the sales taxes
