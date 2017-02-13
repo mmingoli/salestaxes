@@ -18,6 +18,7 @@ import java.util.Map;
 import static java.lang.Boolean.parseBoolean;
 import static org.apache.commons.lang3.math.NumberUtils.toDouble;
 import static org.apache.commons.lang3.math.NumberUtils.toInt;
+import static org.interview.exercises.util.SalesTaxesUtil.roundDoubleNearestHalf;
 import static org.testng.Assert.assertEquals;
 
 /**

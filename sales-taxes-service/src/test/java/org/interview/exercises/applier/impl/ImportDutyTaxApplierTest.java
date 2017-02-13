@@ -2,11 +2,11 @@ package org.interview.exercises.applier.impl;
 
 import org.interview.exercises.bean.PurchasingItem;
 import org.interview.exercises.bean.PurchasingItemType;
-import org.interview.exercises.util.SalesTaxesUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.interview.exercises.util.SalesTaxesUtil.roundDoubleNearestHalf;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by mmingoli on 2/12/2017.
@@ -31,7 +31,7 @@ public class ImportDutyTaxApplierTest {
         PurchasingItem taxedItem2 = importDutyTaxApplier.apply(item2);
 
         assertEquals(taxedItem1.getSalesTax(), item1.getSalesTax());
-        assertEquals(taxedItem2.getSalesTax(), SalesTaxesUtil.roundDouble(item2.getSalesTax() +
+        assertEquals(taxedItem2.getSalesTax(), roundDoubleNearestHalf(item2.getSalesTax() +
                 (item2.getUnitPrice() * ImportDutyTaxApplier.salesTaxPercentage / 100)));
     }
 

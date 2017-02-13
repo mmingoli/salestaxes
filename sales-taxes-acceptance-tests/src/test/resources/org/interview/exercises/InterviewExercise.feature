@@ -25,8 +25,8 @@ Feature: Test data to show how sales taxes service works
       | IMPORTED | QUANTITY | NAME              | TYPE      | UNIT_PRICE | TOTAL_PRICE |
       | true     | 1        | box of chocolates | FOOD      | 10.00      | 10.50       |
       | true     | 1        | bottle of perfume | COSMETICS | 47.50      | 54.65       |
-    And total sales taxes is 7.63
-    And total is 65.13
+    And total sales taxes is 7.65
+    And total is 65.15
 
   Scenario: Test 3
     Given the below purchasing items list:
@@ -42,5 +42,5 @@ Feature: Test data to show how sales taxes service works
       | false    | 1        | bottle of perfume          | COSMETICS        | 18.99      | 20.89       |
       | false    | 1        | packet of headache pills   | MEDICAL_PRODUCTS | 9.75       | 9.75        |
       | true     | 1        | box of imported chocolates | FOOD             | 11.25      | 11.85       |
-    And total sales taxes is 6.66
-    And total is 74.64
+    And total sales taxes is 6.70
+    And total is 74.68

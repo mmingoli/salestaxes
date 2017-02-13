@@ -2,10 +2,10 @@ package org.interview.exercises.applier.impl;
 
 import org.interview.exercises.bean.PurchasingItem;
 import org.interview.exercises.bean.PurchasingItemType;
-import org.interview.exercises.util.SalesTaxesUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.interview.exercises.util.SalesTaxesUtil.roundDoubleNearestHalf;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -41,11 +41,11 @@ public class BasicSalesTaxApplierTest {
 
 
         assertEquals(taxedItemBooks.getSalesTax(), itemBooks.getSalesTax());
-        assertEquals(taxedItemMusic.getSalesTax(), SalesTaxesUtil.roundDouble(itemMusic.getSalesTax() +
+        assertEquals(taxedItemMusic.getSalesTax(), roundDoubleNearestHalf(itemMusic.getSalesTax() +
                 (itemMusic.getUnitPrice() * BasicSalesTaxApplier.salesTaxPercentage / 100)));
         assertEquals(taxedItemFood.getSalesTax(), itemFood.getSalesTax());
         assertEquals(taxedItemMedicalProducts.getSalesTax(), itemMedicalProducts.getSalesTax());
-        assertEquals(taxedItemCosmetics.getSalesTax(), SalesTaxesUtil.roundDouble(itemCosmetics.getSalesTax() +
+        assertEquals(taxedItemCosmetics.getSalesTax(), roundDoubleNearestHalf(itemCosmetics.getSalesTax() +
                 (itemCosmetics.getUnitPrice() * BasicSalesTaxApplier.salesTaxPercentage / 100)));
     }
 

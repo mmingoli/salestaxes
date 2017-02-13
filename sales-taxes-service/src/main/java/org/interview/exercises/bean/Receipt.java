@@ -1,6 +1,5 @@
 package org.interview.exercises.bean;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +17,23 @@ public class Receipt {
      */
     public void addItem(PurchasingItem item) {
         items.add(item);
+    }
+
+    /**
+     * 
+     * @return the size of the list of {@link PurchasingItem} belonging to the receipt
+     */
+    public int size() {
+        return items.size();
+    }
+
+    /**
+     * 
+     * @param item
+     * @return true if the item is contained in the receipt, otherwise false
+     */
+    public boolean contains (PurchasingItem item) {
+        return items.contains(item);
     }
 
     public List<PurchasingItem> getItems() {
@@ -57,7 +73,20 @@ public class Receipt {
 
         Receipt receipt = (Receipt) o;
 
-        return items.equals(receipt.items);
+        if (items.size() != receipt.size()
+                || getTotalSalesTaxes() != receipt.getTotalSalesTaxes()
+                || getTotalPrice() != receipt.getTotalPrice()) {
+            return false;
+        }
+
+        for (PurchasingItem item:
+             items) {
+            if (!receipt.contains(item)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

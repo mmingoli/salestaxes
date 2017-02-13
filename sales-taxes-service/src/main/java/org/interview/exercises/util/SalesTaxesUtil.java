@@ -9,13 +9,12 @@ import java.math.RoundingMode;
 public class SalesTaxesUtil {
 
     /**
-     * This method round to the second decimal digit a double in input
-     * through RoundingMode.HALF_UP
+     * This method round up to the nearest 0.05 a double in input
      * @param toRound
      * @return rounded double
      */
-    public static double roundDouble (double toRound) {
-        return new BigDecimal(toRound).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    public static double roundDoubleNearestHalf (double toRound) {
+        return Math.round(toRound * 20.0) / 20.0;
     }
 
 }

@@ -7,6 +7,8 @@ import org.interview.exercises.bean.PurchasingItemType;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.interview.exercises.util.SalesTaxesUtil.roundDoubleNearestHalf;
+
 /**
  * Created by mmingoli on 2/11/2017.
  */
@@ -22,7 +24,7 @@ public class BasicSalesTaxApplier implements SalesTaxApplier {
 
     public PurchasingItem apply(PurchasingItem item) {{}
         if (applicablePurchasingItemTypes.contains(item.getType())) {
-            double salesTax = item.getSalesTax() + (item.getUnitPrice() * salesTaxPercentage / 100);
+            double salesTax = roundDoubleNearestHalf(item.getSalesTax() + (item.getUnitPrice() * salesTaxPercentage / 100));
             item = new PurchasingItem
                     .Builder(item.getQuantity(), item.getName(), item.getType(), item.getUnitPrice())
                     .imported(item.isImported())

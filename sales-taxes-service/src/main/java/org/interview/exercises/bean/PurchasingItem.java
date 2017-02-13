@@ -1,7 +1,5 @@
 package org.interview.exercises.bean;
 
-import org.interview.exercises.util.SalesTaxesUtil;
-
 /**
  * Created by mmingoli on 2/11/2017.
  */
@@ -36,11 +34,11 @@ public class PurchasingItem {
     }
 
     public double getUnitPrice() {
-        return SalesTaxesUtil.roundDouble(unitPrice);
+        return unitPrice;
     }
 
     public double getSalesTax() {
-        return SalesTaxesUtil.roundDouble(salesTax);
+        return salesTax;
     }
 
     public boolean isImported() {
@@ -48,11 +46,54 @@ public class PurchasingItem {
     }
 
     public double getTotalSalesTax() {
-        return SalesTaxesUtil.roundDouble(salesTax * quantity);
+        return salesTax * quantity;
     }
 
     public double getTotalPrice() {
-        return SalesTaxesUtil.roundDouble((unitPrice + salesTax) * quantity);
+        return (unitPrice + salesTax) * quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PurchasingItem item = (PurchasingItem) o;
+
+        if (quantity != item.quantity) return false;
+        if (Double.compare(item.unitPrice, unitPrice) != 0) return false;
+        if (Double.compare(item.salesTax, salesTax) != 0) return false;
+        if (imported != item.imported) return false;
+        if (name != null ? !name.equals(item.name) : item.name != null) return false;
+        return type == item.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = quantity;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + type.hashCode();
+        temp = Double.doubleToLongBits(unitPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(salesTax);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (imported ? 1 : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PurchasingItem{" +
+                "quantity=" + quantity +
+                ", imported=" + imported +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", unitPrice=" + unitPrice +
+                ", salesTax=" + salesTax +
+                ", totalPrice=" + getTotalPrice() +
+                '}';
     }
 
     public static class Builder {
