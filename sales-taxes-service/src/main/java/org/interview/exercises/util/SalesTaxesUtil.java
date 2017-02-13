@@ -8,13 +8,15 @@ import java.math.RoundingMode;
  */
 public class SalesTaxesUtil {
 
+    public static final BigDecimal PRECISION = BigDecimal.valueOf(0.05);
+
     /**
-     * This method round up to the nearest 0.05 a double in input
+     * This method round up to the nearest 0.05 a BigDecimal in input
      * @param toRound
-     * @return rounded double
+     * @return rounded BigDecimal
      */
-    public static double roundDoubleNearestHalf (double toRound) {
-        return Math.round(toRound * 20.0) / 20.0;
+    public static BigDecimal roundBigDecimalNearestHalf (BigDecimal toRound) {
+        return toRound.divide(PRECISION).setScale(0, BigDecimal.ROUND_UP).multiply(PRECISION);
     }
 
 }

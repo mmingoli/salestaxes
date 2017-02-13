@@ -3,6 +3,8 @@ package org.interview.exercises.bean;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -10,10 +12,10 @@ import static org.testng.Assert.assertEquals;
  */
 public class ReceiptTest {
 
-    private static final double UNIT_PRICE1 = 10.15;
-    private static final double UNIT_PRICE2 = 7.38;
-    private static final double SALES_TAX1 = 1.45;
-    private static final double SALES_TAX2 = 0.51;
+    private static final BigDecimal UNIT_PRICE1 = BigDecimal.valueOf(10.15);
+    private static final BigDecimal UNIT_PRICE2 = BigDecimal.valueOf(7.38);
+    private static final BigDecimal SALES_TAX1 = BigDecimal.valueOf(1.45);
+    private static final BigDecimal SALES_TAX2 = BigDecimal.valueOf(0.51);
 
     private PurchasingItem item1;
     private PurchasingItem item2;
@@ -31,15 +33,15 @@ public class ReceiptTest {
 
     @Test
     public void testGetTotalSalesTaxes() throws Exception {
-        assertEquals(receipt.getTotalSalesTaxes(), item1.getTotalSalesTax() + item2.getTotalSalesTax());
+        assertEquals(receipt.getTotalSalesTaxes(), item1.getTotalSalesTax().add(item2.getTotalSalesTax()));
     }
 
     @Test
     public void testGetTotalPrice() throws Exception {
-        assertEquals(receipt.getTotalPrice(), item1.getTotalPrice() + item2.getTotalPrice());
+        assertEquals(receipt.getTotalPrice(), item1.getTotalPrice().add(item2.getTotalPrice()));
     }
 
-    private PurchasingItem getPurchasingItem(double unitPrice, double salesTax) {
+    private PurchasingItem getPurchasingItem(BigDecimal unitPrice, BigDecimal salesTax) {
         return new PurchasingItem.Builder("test name", PurchasingItemType.BOOKS, unitPrice)
                 .salesTax(salesTax)
                 .build();

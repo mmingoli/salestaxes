@@ -2,6 +2,8 @@ package org.interview.exercises.bean;
 
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+
 import static org.testng.Assert.*;
 
 /**
@@ -12,8 +14,8 @@ public class PurchasingItemTest {
     private static final int QUANTITY = 3;
     private static final String NAME = "test name";
     private static final PurchasingItemType TYPE = PurchasingItemType.BOOKS;
-    private static final double UNIT_PRICE = 10.15;
-    public static final double SALES_TAX = 11.4;
+    private static final BigDecimal UNIT_PRICE = BigDecimal.valueOf(10.15);
+    public static final BigDecimal SALES_TAX = BigDecimal.valueOf(11.4);
 
     private PurchasingItem item;
 
@@ -51,14 +53,14 @@ public class PurchasingItemTest {
     public void testGetTotalSalesTaxes() throws Exception {
         item = getPurchasingItemWithSalesTax();
 
-        assertEquals(item.getTotalSalesTax(), SALES_TAX * QUANTITY);
+        assertEquals(item.getTotalSalesTax(), SALES_TAX.multiply(BigDecimal.valueOf(QUANTITY)));
     }
 
     @Test
     public void testGetTotalPrice() throws Exception {
         item = getPurchasingItemWithSalesTax();
 
-        assertEquals(item.getTotalPrice(), (UNIT_PRICE + SALES_TAX) * QUANTITY);
+        assertEquals(item.getTotalPrice(), (UNIT_PRICE.add(SALES_TAX)).multiply(BigDecimal.valueOf(QUANTITY)));
     }
 
     private PurchasingItem getPurchasingItemWithSalesTax() {
@@ -67,7 +69,7 @@ public class PurchasingItemTest {
                 .build();
     }
 
-    private void checkPurchasingItemInstance(int quantity, String name, PurchasingItemType type, double unitPrice) {
+    private void checkPurchasingItemInstance(int quantity, String name, PurchasingItemType type, BigDecimal unitPrice) {
         assertEquals(item.getQuantity(), quantity);
         assertEquals(item.getName(), name);
         assertEquals(item.getType(), type);

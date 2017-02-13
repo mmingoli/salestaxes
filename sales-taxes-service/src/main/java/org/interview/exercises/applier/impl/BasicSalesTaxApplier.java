@@ -4,17 +4,18 @@ import org.interview.exercises.applier.SalesTaxApplier;
 import org.interview.exercises.bean.PurchasingItem;
 import org.interview.exercises.bean.PurchasingItemType;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.interview.exercises.util.SalesTaxesUtil.roundDoubleNearestHalf;
+import static org.interview.exercises.util.SalesTaxesUtil.roundBigDecimalNearestHalf;
 
 /**
  * Created by mmingoli on 2/11/2017.
  */
 public class BasicSalesTaxApplier implements SalesTaxApplier {
 
-    public  static double salesTaxPercentage = 10.0;
+    public  static BigDecimal salesTaxPercentage = BigDecimal.valueOf(10.0);
     private static List<PurchasingItemType> applicablePurchasingItemTypes = new ArrayList<PurchasingItemType>();
 
     static {
@@ -24,7 +25,13 @@ public class BasicSalesTaxApplier implements SalesTaxApplier {
 
     public PurchasingItem apply(PurchasingItem item) {{}
         if (applicablePurchasingItemTypes.contains(item.getType())) {
-            double salesTax = roundDoubleNearestHalf(item.getSalesTax() + (item.getUnitPrice() * salesTaxPercentage / 100));
+            BigDecimal salesTax = roundBigDecimalNearestHalf(item.getSalesTax()
+                    .add(item.getUnitPrice()
+                            .multiply(salesTaxPercentage)
+                            .divide(BigDecimal.valueOf(100))
+                    )
+            );
+
             item = new PurchasingItem
                     .Builder(item.getQuantity(), item.getName(), item.getType(), item.getUnitPrice())
                     .imported(item.isImported())

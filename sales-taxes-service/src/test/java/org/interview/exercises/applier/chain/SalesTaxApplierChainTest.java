@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -16,7 +18,9 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class SalesTaxApplierChainTest {
 
     private SalesTaxApplierChain salesTaxApplierChain = new SalesTaxApplierChain();
-    private PurchasingItem item = new PurchasingItem.Builder("test name", PurchasingItemType.BOOKS, 10.15).build();
+    private PurchasingItem item = new PurchasingItem
+            .Builder("test name", PurchasingItemType.BOOKS, BigDecimal.valueOf(10.15))
+            .build();
 
     @Mock
     private SalesTaxApplier applier1;

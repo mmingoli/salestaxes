@@ -1,5 +1,6 @@
 package org.interview.exercises.bean;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,12 +45,13 @@ public class Receipt {
      *
      * @return total sales taxes for the list of {@link PurchasingItem}
      */
-    public double getTotalSalesTaxes() {
-        double totalSalesTaxes = 0;
+    public BigDecimal getTotalSalesTaxes() {
+        BigDecimal totalSalesTaxes = BigDecimal.ZERO;
         for (PurchasingItem item :
                 items) {
-            totalSalesTaxes += (item != null)?item.getTotalSalesTax():0;
+            totalSalesTaxes = (item != null)?totalSalesTaxes.add(item.getTotalSalesTax()):totalSalesTaxes;
         }
+
         return totalSalesTaxes;
     }
 
@@ -57,11 +59,12 @@ public class Receipt {
      *
      * @return total price (comprehensive of sales taxes) for the list of {@link PurchasingItem}
      */
-    public double getTotalPrice() {
-        double totalPrice = 0;
+    public BigDecimal getTotalPrice() {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        totalPrice.setScale(2);
         for (PurchasingItem item :
                 items) {
-            totalPrice += (item != null)?item.getTotalPrice():0;
+            totalPrice = (item != null)?totalPrice.add(item.getTotalPrice()):totalPrice;
         }
         return totalPrice;
     }
