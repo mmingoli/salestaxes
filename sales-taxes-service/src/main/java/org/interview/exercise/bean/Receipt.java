@@ -15,7 +15,7 @@ public class Receipt {
     private List<PurchasingItem> items = new LinkedList<PurchasingItem>();
 
     /**
-     * to add a purchasing item to the receipt that will be
+     * it allows to add a purchasing item to the receipt that will be
      * returned by {@link SalesTaxesService}
      * @param item
      */
@@ -40,6 +40,10 @@ public class Receipt {
         return items.contains(item);
     }
 
+    /**
+     *
+     * @return the iterator on the list of {@link PurchasingItem} belonging to the receipt
+     */
     public Iterator<PurchasingItem> itemsIterator() {
         return (Iterator<PurchasingItem>) items.iterator();
     }
@@ -70,29 +74,6 @@ public class Receipt {
             totalPrice = (item != null)?totalPrice.add(item.getTotalPrice()):totalPrice;
         }
         return totalPrice;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Receipt receipt = (Receipt) o;
-
-        if (items.size() != receipt.size()
-                || getTotalSalesTaxes() != receipt.getTotalSalesTaxes()
-                || getTotalPrice() != receipt.getTotalPrice()) {
-            return false;
-        }
-
-        for (PurchasingItem item:
-             items) {
-            if (!receipt.contains(item)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     @Override

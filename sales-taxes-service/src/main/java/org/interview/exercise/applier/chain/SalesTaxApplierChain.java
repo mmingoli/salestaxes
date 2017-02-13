@@ -13,7 +13,7 @@ public class SalesTaxApplierChain {
     private List<SalesTaxApplier> salesTaxAppliers = new LinkedList<SalesTaxApplier>();
 
     /**
-     * By this method it's possible to add a {@link SalesTaxApplier} to the chain
+     * it allows to add a {@link SalesTaxApplier} to the chain
      * @param salesTaxApplier
      */
     public void addSalesTaxApplier(SalesTaxApplier salesTaxApplier){
@@ -21,7 +21,7 @@ public class SalesTaxApplierChain {
     }
 
     /**
-     * Execute all the {@link SalesTaxApplier} in order as they were added
+     * execute all the {@link SalesTaxApplier} maintaining the order of adding
      * @param item
      * @return item with all the sales taxes
      */

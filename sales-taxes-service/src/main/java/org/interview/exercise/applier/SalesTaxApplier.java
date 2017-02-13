@@ -8,7 +8,7 @@ import org.interview.exercise.bean.PurchasingItem;
 public interface SalesTaxApplier {
 
     /**
-     * The Strategy pattern interface to apply a sales tax to a {@link PurchasingItem}
+     * the Strategy pattern interface to apply a sales tax to a {@link PurchasingItem}
      * @param item
      * @return item with possibly a sales tax
      */

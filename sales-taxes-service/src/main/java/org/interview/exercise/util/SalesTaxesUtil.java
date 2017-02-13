@@ -10,7 +10,7 @@ public class SalesTaxesUtil {
     public static final BigDecimal PRECISION = BigDecimal.valueOf(0.05);
 
     /**
-     * This method round up to the nearest 0.05 a BigDecimal in input
+     * this method round up to the nearest 0.05 a BigDecimal in input
      * @param toRound
      * @return rounded BigDecimal
      */
