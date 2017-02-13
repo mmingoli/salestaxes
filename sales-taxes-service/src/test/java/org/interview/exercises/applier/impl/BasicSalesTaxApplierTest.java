@@ -2,10 +2,13 @@ package org.interview.exercises.applier.impl;
 
 import org.interview.exercises.bean.PurchasingItem;
 import org.interview.exercises.bean.PurchasingItemType;
-import org.interview.exercises.util.SalesTaxesUtil;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+
+import static org.interview.exercises.applier.impl.BasicSalesTaxApplier.salesTaxPercentage;
+import static org.interview.exercises.util.SalesTaxesUtil.roundBigDecimalNearestHalf;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -22,13 +25,22 @@ public class BasicSalesTaxApplierTest {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        itemBooks = new PurchasingItem.Builder("test name", PurchasingItemType.BOOKS, 17.3).build();
-        itemMusic = new PurchasingItem.Builder("test name", PurchasingItemType.MUSIC, 13.7)
+        itemBooks = new PurchasingItem
+                .Builder("test name", PurchasingItemType.BOOKS, BigDecimal.valueOf(17.3))
+                .build();
+        itemMusic = new PurchasingItem
+                .Builder("test name", PurchasingItemType.MUSIC, BigDecimal.valueOf(13.7))
                 .imported(true)
                 .build();
-        itemFood = new PurchasingItem.Builder("test name", PurchasingItemType.FOOD, 22.4).build();
-        itemMedicalProducts = new PurchasingItem.Builder("test name", PurchasingItemType.MEDICAL_PRODUCTS, 3.3).build();
-        itemCosmetics = new PurchasingItem.Builder("test name", PurchasingItemType.COSMETICS, 12.17).build();
+        itemFood = new PurchasingItem
+                .Builder("test name", PurchasingItemType.FOOD, BigDecimal.valueOf(22.4))
+                .build();
+        itemMedicalProducts = new PurchasingItem
+                .Builder("test name", PurchasingItemType.MEDICAL_PRODUCTS, BigDecimal.valueOf(3.3))
+                .build();
+        itemCosmetics = new PurchasingItem
+                .Builder("test name", PurchasingItemType.COSMETICS, BigDecimal.valueOf(12.17))
+                .build();
     }
 
     @Test
@@ -41,12 +53,18 @@ public class BasicSalesTaxApplierTest {
 
 
         assertEquals(taxedItemBooks.getSalesTax(), itemBooks.getSalesTax());
-        assertEquals(taxedItemMusic.getSalesTax(), SalesTaxesUtil.roundDouble(itemMusic.getSalesTax() +
-                (itemMusic.getUnitPrice() * BasicSalesTaxApplier.salesTaxPercentage / 100)));
+        assertEquals(taxedItemMusic.getSalesTax(), roundBigDecimalNearestHalf(
+                itemMusic.getSalesTax().add(itemMusic.getUnitPrice()
+                        .multiply(salesTaxPercentage).divide(BigDecimal.valueOf(100))
+                )
+        ));
         assertEquals(taxedItemFood.getSalesTax(), itemFood.getSalesTax());
         assertEquals(taxedItemMedicalProducts.getSalesTax(), itemMedicalProducts.getSalesTax());
-        assertEquals(taxedItemCosmetics.getSalesTax(), SalesTaxesUtil.roundDouble(itemCosmetics.getSalesTax() +
-                (itemCosmetics.getUnitPrice() * BasicSalesTaxApplier.salesTaxPercentage / 100)));
+        assertEquals(taxedItemCosmetics.getSalesTax(), roundBigDecimalNearestHalf(
+                itemCosmetics.getSalesTax().add(itemCosmetics.getUnitPrice()
+                        .multiply(salesTaxPercentage).divide(BigDecimal.valueOf(100))
+                )
+        ));
     }
 
 }

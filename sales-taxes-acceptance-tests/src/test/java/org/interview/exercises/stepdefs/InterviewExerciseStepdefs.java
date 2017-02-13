@@ -11,14 +11,14 @@ import org.interview.exercises.bean.Receipt;
 import org.interview.exercises.service.SalesTaxesService;
 import org.interview.exercises.service.impl.SalesTaxesServiceImpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static java.lang.Boolean.parseBoolean;
-import static org.apache.commons.lang3.math.NumberUtils.toDouble;
 import static org.apache.commons.lang3.math.NumberUtils.toInt;
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by mmingoli on 2/12/2017.
@@ -58,12 +58,12 @@ public class InterviewExerciseStepdefs {
 
     @And("^total sales taxes is (.*)$")
     public void totalSalesTaxesIs(String totalStr) throws Throwable {
-        assertEquals(receipt.getTotalSalesTaxes(), toDouble(totalStr));
+        assertEquals(new BigDecimal(totalStr), receipt.getTotalSalesTaxes());
     }
 
     @And("^total is (.*)$")
     public void totalIs(String totalStr) throws Throwable {
-        assertEquals(receipt.getTotalPrice(), toDouble(totalStr));
+        assertEquals(new BigDecimal(totalStr), receipt.getTotalPrice());
     }
 
     private static final PurchasingItem convertRowToPurchasingItem(Map<String, String> row) {
@@ -71,9 +71,11 @@ public class InterviewExerciseStepdefs {
         final int quantity = toInt(row.get(QUANTITY_HEADER));
         final String name = row.get(NAME_HEADER);
         final PurchasingItemType type = PurchasingItemType.valueOf(row.get(TYPE_HEADER));
-        final double unitPrice = toDouble(row.get(UNIT_PRICE_HEADER));
-        final double totalPrice = toDouble(row.get(TOTAL_PRICE_HEADER));
-        final double salesTax = (totalPrice > 0)?totalPrice - unitPrice:0;
+        final BigDecimal unitPrice = new BigDecimal(row.get(UNIT_PRICE_HEADER));
+        final BigDecimal totalPrice =
+                (row.get(TOTAL_PRICE_HEADER) != null)?new BigDecimal(row.get(TOTAL_PRICE_HEADER)):BigDecimal.ZERO;
+        final BigDecimal salesTax =
+                (totalPrice.compareTo(BigDecimal.ZERO) == 1)?totalPrice.subtract(unitPrice):BigDecimal.ZERO;
         return new PurchasingItem
                 .Builder(quantity, name, type, unitPrice)
                 .imported(imported)

@@ -14,6 +14,12 @@ public class SalesTaxApplierManager {
         salesTaxApplierChain = builder.getSalesTaxApplierChain();
     }
 
+    /**
+     * Context to call the chain of {@link SalesTaxApplier} which will apply
+     * sales taxes to {@link PurchasingItem}
+     * @param item
+     * @return item with all the sales taxes
+     */
     public PurchasingItem applySalesTax(PurchasingItem item){
         return salesTaxApplierChain.apply(item);
     }

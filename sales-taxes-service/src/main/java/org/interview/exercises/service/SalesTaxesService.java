@@ -10,6 +10,12 @@ import java.util.List;
  */
 public interface SalesTaxesService {
 
+    /**
+     * Access point to the {@link SalesTaxesService}, it applies several sales taxes
+     * specified in the implementation to a list of {@link PurchasingItem} in input
+     * @param items
+     * @return a {@link Receipt} of the purchasing items
+     */
     Receipt getReceipt(List<PurchasingItem> items);
 
 }

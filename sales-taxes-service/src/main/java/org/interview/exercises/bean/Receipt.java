@@ -1,6 +1,6 @@
 package org.interview.exercises.bean;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,28 +11,60 @@ public class Receipt {
 
     private List<PurchasingItem> items = new LinkedList<PurchasingItem>();
 
+    /**
+     * to add a purchasing item to the receipt that will be
+     * returned by {@link org.interview.exercises.service.SalesTaxesService}
+     * @param item
+     */
     public void addItem(PurchasingItem item) {
         items.add(item);
+    }
+
+    /**
+     * 
+     * @return the size of the list of {@link PurchasingItem} belonging to the receipt
+     */
+    public int size() {
+        return items.size();
+    }
+
+    /**
+     * 
+     * @param item
+     * @return true if the item is contained in the receipt, otherwise false
+     */
+    public boolean contains (PurchasingItem item) {
+        return items.contains(item);
     }
 
     public List<PurchasingItem> getItems() {
         return items;
     }
 
-    public double getTotalSalesTaxes() {
-        double totalSalesTaxes = 0;
+    /**
+     *
+     * @return total sales taxes for the list of {@link PurchasingItem}
+     */
+    public BigDecimal getTotalSalesTaxes() {
+        BigDecimal totalSalesTaxes = BigDecimal.ZERO;
         for (PurchasingItem item :
                 items) {
-            totalSalesTaxes += (item != null)?item.getTotalSalesTax():0;
+            totalSalesTaxes = (item != null)?totalSalesTaxes.add(item.getTotalSalesTax()):totalSalesTaxes;
         }
+
         return totalSalesTaxes;
     }
 
-    public double getTotalPrice() {
-        double totalPrice = 0;
+    /**
+     *
+     * @return total price (comprehensive of sales taxes) for the list of {@link PurchasingItem}
+     */
+    public BigDecimal getTotalPrice() {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        totalPrice.setScale(2);
         for (PurchasingItem item :
                 items) {
-            totalPrice += (item != null)?item.getTotalPrice():0;
+            totalPrice = (item != null)?totalPrice.add(item.getTotalPrice()):totalPrice;
         }
         return totalPrice;
     }
@@ -44,7 +76,20 @@ public class Receipt {
 
         Receipt receipt = (Receipt) o;
 
-        return items.equals(receipt.items);
+        if (items.size() != receipt.size()
+                || getTotalSalesTaxes() != receipt.getTotalSalesTaxes()
+                || getTotalPrice() != receipt.getTotalPrice()) {
+            return false;
+        }
+
+        for (PurchasingItem item:
+             items) {
+            if (!receipt.contains(item)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
